@@ -1,14 +1,19 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
-using namespace std;
+#include <stdlib.h>
 #ifdef _WIN32
-const string path = to_string(getenv("SystemRoot")) + "\\System32\\drivers\\etc\\hosts";
+#include <Windows.h>
+LPSTR buffer;
+DWORD tmp = GetEnvironmentVariable((LPCSTR)("SYSTEMROOT"), buffer, 32768);
+std::string buf = (char*)buffer;
+const std::string path = buf + "\\System32\\drivers\\etc\\hosts";
 #else
-const string path = "/etc/hosts";
+const std::string path = "/etc/hosts";
 #endif
 
-string execute(const char *command) {
+std::string execute(const char *command) {
     char buffer[32768];
     char result[32768] = {0};
     FILE *ptr;
@@ -26,16 +31,16 @@ string execute(const char *command) {
 }
 
 struct info {
-    info operator<<(string x) {
-        cout << "[INFO] " << x << endl;
-        return *this;
+    int operator<<(std::string x) {
+        std::cout << "[INFO] " << x << std::endl;
+        return 0;
     }
 } info;
 
 struct error {
-    error operator<<(string x) {
-        cerr << "[ERROR] " << x << endl;
-        return *this;
+    int operator<<(std::string x) {
+        std::cerr << "[ERROR] " << x << std::endl;
+        return 0;
     }
 } error;
 
@@ -47,21 +52,21 @@ int main() {
         error << "Failed to create hosts file backup.";
         exit(1);
     }
-    ifstream file_write(path, ios::out | ios::trunc);
+    std::ofstream file_write(path, std::ios::out | std::ios::trunc);
     if (!file_write.is_open()) {
         error << "Failed to open hosts file.";
         exit(1);
     }
     info << "Writing the hosts file.";
-    string result = execute("curl -s https://tmd.imjcj.eu.org/hosts");
+    std::string result = execute("curl -s https://tmd.imjcj.eu.org/hosts");
     result = result.substr(38);
     info << "Complated.";
-    file_write << result << endl;
+    file_write << result.data() << std::endl;
     file_write.close();
-    cout << "You can press Ctrl+Z or Enter to stop the program." << endl;
-    string tmp;
-    while (getline(cin, tmp)) {}
-    if (remove(path) == 0) {
+    std::cout << "You can press Ctrl+Z or Enter to stop the program." << std::endl;
+    std::string tmp;
+    while (std::getline(std::cin, tmp)) {}
+    if (remove(path.c_str()) == 0) {
         info << "Deleted the hosts file.";
     }
     else {
