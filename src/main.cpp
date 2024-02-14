@@ -5,10 +5,7 @@
 #include <stdlib.h>
 #ifdef _WIN32
 #include <Windows.h>
-LPSTR buffer;
-DWORD tmp = GetEnvironmentVariable((LPCSTR)("SYSTEMROOT"), buffer, 32768);
-std::string buf = (char*)buffer;
-const std::string path = buf + "\\System32\\drivers\\etc\\hosts";
+const std::string path = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 #else
 const std::string path = "/etc/hosts";
 #endif
