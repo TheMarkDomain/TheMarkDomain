@@ -42,13 +42,13 @@
                     check.onclick = async () => { };
                     button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="color: rgb(13, 110, 253);" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16"><path transform="rotate(0)" fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/><animateTransform attributeName="transform" attributeType="XML" type="rotate" form="0 0 0" to="360 0 0" begin="0s" dur="0.85s" repeatCount="indefinite"/></svg>';
                     await new Promise((resolve) => {
+                        setTimeout(resolve, 2000);
                         if (location.hostname == "tmd.mark" || location.hostname == "official.mark" || location.hostname == "www.tmd.mark" || location.hostname == "www.official.mark") {
                             check.status = true;
                         }
                         else {
                             check.status = false;
                         }
-                        resolve();
                     });
                     button.style.padding = '0';
                     if (check.status === true) {
