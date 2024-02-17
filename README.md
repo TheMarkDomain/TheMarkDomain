@@ -4,5 +4,4 @@
 
 A program, like the *tor project*.
 
-文档：
 如果要添加新的网站，请clone pages分支，并修改hosts文件。
