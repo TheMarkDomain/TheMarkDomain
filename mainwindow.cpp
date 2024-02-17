@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->label_2->setOpenExternalLinks(true);
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +58,7 @@ void MainWindow::on_pushButton_clicked()
         result = result.substr(38);
         file_write << result.data() << std::endl;
         file_write.close();
-        ui -> label_2 -> setText("已开启");
+        ui -> label_2 -> setText("已启用 <a href='http://tmd.mark/'>测试一下</a>");
         flag = true;
     }
     else {
