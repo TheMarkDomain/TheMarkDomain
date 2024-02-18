@@ -1,5 +1,3 @@
-# The Mark Domain
+# The Mark Domain - Pro
 
-一个像tor路由的程序。
-
-A program, like the *tor project*.
+&emsp;&emsp;The Mark Domain 的 Pro 版本，适用于软件开发时作为api接口运行。
